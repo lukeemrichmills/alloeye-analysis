@@ -1,0 +1,81 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(rmarkdown)
+library(knitr)
+# Load the necessary library
+library(dplyr)
+library(readr)
+library(lme4)
+```
+```{r}
+
+```
+
+Load data
+```{r}
+
+
+
+
+# Read the CSV file
+df <- read_csv("object_time_dynamics.csv")
+
+# Remove rows where 'object' is NA
+df <- df %>% filter(!is.na(object))
+
+# Replace 'None' with NA and then remove rows with any NA
+df <- df %>% mutate_all(~na_if(.,"None")) %>% na.omit()
+
+```
+```{r}
+
+
+df <- df %>%  filter(group %in% c('MCI-', 'MCI+')) %>%
+    mutate(mcipos = ifelse(group == 'MCI+', 1, 0),
+                 object2 = ifelse(object %in% c('Obj2', 'Obj3', 'Obj4'), 'Obj', object)
+    ) %>%
+    mutate(t = as.numeric(t),
+           object2 = as.factor(object2),
+           trial = as.factor(trial),
+           participant = as.factor(participant),
+           mcipos = as.factor(mcipos)
+      ) %>%
+    filter(object2 %in% c('Moved', 'Obj', 'Table'))
+
+
+```
+```{r}
+# Fit the model
+model <- glmer(mcipos ~ t:object2 + (1|trial/participant), data=df, family = binomial, control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 1e5)))
+
+summary(model)
+
+## RUN THE ABOVE WITH YOUNGER VS MCI+ ONLY
+```
+```{r}
+df_prop <- read_csv('proportion_time_dynamics.csv')
+df_prop <- df_prop %>% filter(group %in% c('MCI-', 'MCI+')) %>%
+    mutate(mcipos = ifelse(group == 'MCI+', 1, 0),
+           participant = paste(group, participant, sep='_')
+    ) %>%
+    mutate(time = as.integer(time),
+           participant = as.factor(participant),
+           mcipos = as.factor(mcipos)
+      )
+
+
+```
+```{r}
+model_prop <- glmer(mcipos ~ table:moved + (1|participant),
+                    data=df_prop, family = binomial,
+                    control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 1e5)))
+(summary(model_prop))
+```
+```{r}
+model_test <- lmer(table ~ time*mcipos + (1|participant), data=df_prop)
+summary(model_test)
+```

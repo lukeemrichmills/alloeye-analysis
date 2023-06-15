@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7d67c3ed-b44d-46bd-8fe0-d7130e21ca3a" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Jupyter Notebook" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2CJAinvfOAWiH3YTyEJSl9Nrt1D" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;database.data.extractors.current.export.id&quot;: &quot;Comma-separated (CSV)_id&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Luke/Documents/AlloEye/data/feature_saves/all_real_trials.csv&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Luke\OneDrive\Documents\PhD\AlloEye\data_pipeline\src\d04_wrangling" />
+      <recent name="C:\Users\Luke\OneDrive\Documents\PhD\AlloEye\data_pipeline\tests" />
+      <recent name="C:\Users\Luke Emrich-Mills\OneDrive\Documents\PhD\AlloEye\data_pipeline" />
+      <recent name="C:\Users\Luke\OneDrive\Documents\PhD\AlloEye\data_pipeline\data\01_raw" />
+      <recent name="C:\Users\Luke\OneDrive\Documents\PhD\AlloEye\data_pipeline\data" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Luke\OneDrive\Documents\PhD\AlloEye\data_pipeline\src\d03_processing" />
+      <recent name="C:\Users\Luke\OneDrive\Documents\PhD\AlloEye\data_pipeline\src\d03_processing\feature_calculate" />
+      <recent name="C:\Users\Luke\OneDrive\Documents\PhD\AlloEye\data_pipeline\src\d01_data\fetch" />
+      <recent name="C:\Users\Luke\OneDrive\Documents\PhD\AlloEye\data_pipeline\src\d01_data\database\ToSQL" />
+      <recent name="C:\Users\Luke\OneDrive\Documents\PhD\AlloEye\data_pipeline\src\d01_data\database\ToSQL\CsvToSQL" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.setup_db (1)">
+    <configuration name="AIS_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="AlloEye" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/notebooks" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/notebooks/AIS_test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="AlloEye" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="add_4MT_cols" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="AlloEye" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data/d01_raw" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data/d01_raw/add_4MT_cols.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="classification" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="AlloEye" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/d05_modelling" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/d05_modelling/classification.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="AlloEye" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="setup_db (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="AlloEye" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/d01_data/database" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/d01_data/database/setup_db.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="sql_commands" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="AlloEye" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/d01_data/database" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/d01_data/database/sql_commands.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.setup_db (1)" />
+        <item itemvalue="Python.AIS_test" />
+        <item itemvalue="Python.add_4MT_cols" />
+        <item itemvalue="Python.classification" />
+        <item itemvalue="Python.sql_commands" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7d67c3ed-b44d-46bd-8fe0-d7130e21ca3a" name="Changes" comment="" />
+      <created>1658510444109</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1658510444109</updated>
+      <workItem from="1658510447086" duration="11807000" />
+      <workItem from="1658734257978" duration="577000" />
+      <workItem from="1658752455232" duration="2739000" />
+      <workItem from="1660237445761" duration="5156000" />
+      <workItem from="1660657107208" duration="130000" />
+      <workItem from="1660657326734" duration="14850000" />
+      <workItem from="1660755677725" duration="3967000" />
+      <workItem from="1660810769844" duration="2406000" />
+      <workItem from="1663084511841" duration="3578000" />
+      <workItem from="1663252946623" duration="18820000" />
+      <workItem from="1663763750504" duration="9966000" />
+      <workItem from="1663776947122" duration="16078000" />
+      <workItem from="1664188413204" duration="6406000" />
+      <workItem from="1664195767707" duration="16320000" />
+      <workItem from="1664378739968" duration="3932000" />
+      <workItem from="1664454315233" duration="20000" />
+      <workItem from="1664548969787" duration="8664000" />
+      <workItem from="1664809233573" duration="19168000" />
+      <workItem from="1664904813643" duration="2209000" />
+      <workItem from="1664961251343" duration="24685000" />
+      <workItem from="1665159472046" duration="667000" />
+      <workItem from="1665160303206" duration="223000" />
+      <workItem from="1665160797747" duration="3801000" />
+      <workItem from="1665392670581" duration="12853000" />
+      <workItem from="1665479592904" duration="5187000" />
+      <workItem from="1665484850431" duration="22096000" />
+      <workItem from="1665567801903" duration="12362000" />
+      <workItem from="1665760514789" duration="10613000" />
+      <workItem from="1665923659490" duration="16224000" />
+      <workItem from="1666024636825" duration="36898000" />
+      <workItem from="1666201581123" duration="566000" />
+      <workItem from="1666250855832" duration="2794000" />
+      <workItem from="1666264672887" duration="1273000" />
+      <workItem from="1666278117811" duration="12280000" />
+      <workItem from="1666778605542" duration="8099000" />
+      <workItem from="1666788782215" duration="638000" />
+      <workItem from="1666792990783" duration="13779000" />
+      <workItem from="1667209856414" duration="12251000" />
+      <workItem from="1667325753629" duration="3812000" />
+      <workItem from="1667332114895" duration="9610000" />
+      <workItem from="1667409641912" duration="1624000" />
+      <workItem from="1667413564269" duration="660000" />
+      <workItem from="1668015041717" duration="5382000" />
+      <workItem from="1668446210151" duration="676000" />
+      <workItem from="1668624964474" duration="696000" />
+      <workItem from="1668701912827" duration="4621000" />
+      <workItem from="1668776935669" duration="5710000" />
+      <workItem from="1669042987703" duration="5469000" />
+      <workItem from="1669111002535" duration="7340000" />
+      <workItem from="1669299897732" duration="31339000" />
+      <workItem from="1669741791443" duration="5517000" />
+      <workItem from="1669827839747" duration="10441000" />
+      <workItem from="1670516922267" duration="52301000" />
+      <workItem from="1671103737651" duration="9904000" />
+      <workItem from="1671119072537" duration="23003000" />
+      <workItem from="1671192863942" duration="61981000" />
+      <workItem from="1671700181919" duration="594000" />
+      <workItem from="1671794025125" duration="23084000" />
+      <workItem from="1672311726420" duration="56684000" />
+      <workItem from="1672582390080" duration="7999000" />
+      <workItem from="1672740232734" duration="5354000" />
+      <workItem from="1672928305838" duration="7529000" />
+      <workItem from="1673254986066" duration="32382000" />
+      <workItem from="1673800182826" duration="32117000" />
+      <workItem from="1673891466707" duration="94451000" />
+      <workItem from="1674726402111" duration="24831000" />
+      <workItem from="1675070269263" duration="8224000" />
+      <workItem from="1675272487908" duration="31789000" />
+      <workItem from="1675361898085" duration="597000" />
+      <workItem from="1675375707241" duration="10072000" />
+      <workItem from="1675446732774" duration="2278000" />
+      <workItem from="1675450323887" duration="645000" />
+      <workItem from="1675453037126" duration="2524000" />
+      <workItem from="1675514486702" duration="8059000" />
+      <workItem from="1675677024786" duration="2846000" />
+      <workItem from="1675698348630" duration="4273000" />
+      <workItem from="1675707524525" duration="38697000" />
+      <workItem from="1675964836492" duration="30023000" />
+      <workItem from="1676369515185" duration="1000000" />
+      <workItem from="1676378637399" duration="855000" />
+      <workItem from="1676475905563" duration="4799000" />
+      <workItem from="1676488112399" duration="3145000" />
+      <workItem from="1676580279306" duration="4789000" />
+      <workItem from="1676643578658" duration="3914000" />
+      <workItem from="1676716019332" duration="1396000" />
+      <workItem from="1676721048393" duration="2285000" />
+      <workItem from="1676885489240" duration="16163000" />
+      <workItem from="1677156612628" duration="1164000" />
+      <workItem from="1677221818258" duration="23901000" />
+      <workItem from="1677680167951" duration="2531000" />
+      <workItem from="1678039479959" duration="13156000" />
+      <workItem from="1678124657799" duration="13518000" />
+      <workItem from="1678635965256" duration="1709000" />
+      <workItem from="1678729806846" duration="635000" />
+      <workItem from="1678893690419" duration="298000" />
+      <workItem from="1678905369557" duration="10928000" />
+      <workItem from="1678989112550" duration="12082000" />
+      <workItem from="1679059993320" duration="1309000" />
+      <workItem from="1679080650021" duration="1651000" />
+      <workItem from="1679336633285" duration="9061000" />
+      <workItem from="1679418476635" duration="5825000" />
+      <workItem from="1679502498765" duration="1802000" />
+      <workItem from="1679586765448" duration="465000" />
+      <workItem from="1679588159688" duration="18878000" />
+      <workItem from="1679685467810" duration="424000" />
+      <workItem from="1680532859319" duration="11070000" />
+      <workItem from="1680619207447" duration="7960000" />
+      <workItem from="1680638664334" duration="606000" />
+      <workItem from="1680684412615" duration="3543000" />
+      <workItem from="1680693903161" duration="6012000" />
+      <workItem from="1680771901660" duration="8159000" />
+      <workItem from="1681036311662" duration="11092000" />
+      <workItem from="1681317948711" duration="1972000" />
+      <workItem from="1681659456055" duration="6488000" />
+      <workItem from="1681917706021" duration="973000" />
+      <workItem from="1681919051574" duration="113000" />
+      <workItem from="1682535203200" duration="1778000" />
+      <workItem from="1682712739344" duration="1225000" />
+      <workItem from="1682773249849" duration="6450000" />
+      <workItem from="1682859737326" duration="764000" />
+      <workItem from="1682926957941" duration="625000" />
+      <workItem from="1682947044919" duration="631000" />
+      <workItem from="1682949747455" duration="5050000" />
+      <workItem from="1683100917319" duration="1546000" />
+      <workItem from="1683129753321" duration="2815000" />
+      <workItem from="1683291218490" duration="1939000" />
+      <workItem from="1683388037894" duration="8601000" />
+      <workItem from="1683531072219" duration="6882000" />
+      <workItem from="1683622790124" duration="3445000" />
+      <workItem from="1683736232944" duration="1424000" />
+      <workItem from="1683913405238" duration="6838000" />
+      <workItem from="1684143031153" duration="4440000" />
+      <workItem from="1684154246844" duration="2296000" />
+      <workItem from="1684159295002" duration="76000" />
+      <workItem from="1684223764074" duration="627000" />
+      <workItem from="1684226734357" duration="14195000" />
+      <workItem from="1684248822349" duration="2538000" />
+      <workItem from="1684303408569" duration="659000" />
+      <workItem from="1684329723529" duration="718000" />
+      <workItem from="1684417556059" duration="1477000" />
+      <workItem from="1684507755189" duration="1945000" />
+      <workItem from="1684565753419" duration="20835000" />
+      <workItem from="1684596119481" duration="7726000" />
+      <workItem from="1684605072535" duration="3743000" />
+      <workItem from="1684609027277" duration="549000" />
+      <workItem from="1684609738673" duration="34241000" />
+      <workItem from="1684835448331" duration="124000" />
+      <workItem from="1684839963328" duration="1319000" />
+      <workItem from="1684999616818" duration="331000" />
+      <workItem from="1685121367273" duration="349000" />
+      <workItem from="1685463452548" duration="222000" />
+      <workItem from="1685518518167" duration="6000" />
+      <workItem from="1685518835625" duration="27000" />
+      <workItem from="1685518904795" duration="3048000" />
+      <workItem from="1685541671093" duration="10119000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>8</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d01_data/file_handling/create_test_files.py</url>
+          <line>43</line>
+          <option name="timeStamp" value="279" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d02_intermediate/gaze_profiling.py</url>
+          <line>7</line>
+          <option name="timeStamp" value="367" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d07_visualisation/performance_plotting.py</url>
+          <line>37</line>
+          <option name="timeStamp" value="395" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d07_visualisation/performance_plotting.py</url>
+          <line>31</line>
+          <option name="timeStamp" value="397" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$USER_HOME$/.conda/envs/alloeyepy/Lib/site-packages/pandas/core/indexes/range.py</url>
+          <line>386</line>
+          <option name="timeStamp" value="410" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d03_processing/feature_extract/trial_to_ppt.py</url>
+          <line>57</line>
+          <option name="timeStamp" value="439" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d01_data/database/PsqlCommander.py</url>
+          <line>102</line>
+          <option name="timeStamp" value="485" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d01_data/database/PsqlCommander.py</url>
+          <line>101</line>
+          <option name="timeStamp" value="486" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d07_visualisation/feature_plotting.py</url>
+          <line>32</line>
+          <option name="timeStamp" value="489" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d07_visualisation/feature_plotting.py</url>
+          <line>27</line>
+          <option name="timeStamp" value="490" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d03_processing/fixations/GazeCollisionFixations.py</url>
+          <line>284</line>
+          <option name="timeStamp" value="501" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d03_processing/feature_calculate/fix_sacc_calculations.py</url>
+          <line>58</line>
+          <option name="timeStamp" value="575" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d03_processing/feature_calculate/fix_sacc_calculations.py</url>
+          <line>96</line>
+          <option name="timeStamp" value="615" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d01_data/database/ToSQL/ToSQL.py</url>
+          <line>111</line>
+          <option name="timeStamp" value="628" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d03_processing/FeatureWrapper.py</url>
+          <line>26</line>
+          <option name="timeStamp" value="639" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d00_utils/type_checks.py</url>
+          <line>8</line>
+          <option name="timeStamp" value="721" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d01_data/fetch/fetch_conditions.py</url>
+          <line>21</line>
+          <option name="timeStamp" value="785" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d05_modelling/classification.py</url>
+          <line>34</line>
+          <option name="timeStamp" value="901" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/data/d01_raw/add_4MT_cols.py</url>
+          <line>59</line>
+          <option name="timeStamp" value="917" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d01_data/database/ToSQL/CsvToSQL/TimepointCsvToSQL.py</url>
+          <line>173</line>
+          <option name="timeStamp" value="988" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$USER_HOME$/anaconda3/envs/alloeyepy/Lib/site-packages/pandas/core/indexes/base.py</url>
+          <line>3636</line>
+          <option name="timeStamp" value="1008" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d03_processing/feature_calculate/fix_sacc_calculations.py</url>
+          <line>130</line>
+          <option name="timeStamp" value="1010" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$USER_HOME$/anaconda3/envs/alloeyepy/Lib/site-packages/numpy/core/_methods.py</url>
+          <line>168</line>
+          <option name="timeStamp" value="1042" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d03_processing/fixations/GazeCollisionFixations.py</url>
+          <line>96</line>
+          <option name="timeStamp" value="1090" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d03_processing/fixations/SignalProcessor.py</url>
+          <line>153</line>
+          <option name="timeStamp" value="1160" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d03_processing/fixations/GazeCollision.py</url>
+          <line>141</line>
+          <option name="timeStamp" value="1266" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$USER_HOME$/anaconda3/envs/alloeyepy/Lib/site-packages/matplotlib/path.py</url>
+          <line>630</line>
+          <option name="timeStamp" value="1307" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d03_processing/feature_calculate/viewing_compare_calcs.py</url>
+          <line>439</line>
+          <option name="timeStamp" value="1312" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d03_processing/feature_calculate/viewing_compare_calcs.py</url>
+          <line>369</line>
+          <option name="timeStamp" value="1315" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d01_data/database/sql_commands.py</url>
+          <line>456</line>
+          <option name="timeStamp" value="1347" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d03_processing/fixations/FixationProcessor.py</url>
+          <line>506</line>
+          <option name="timeStamp" value="1353" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d03_processing/feature_extract/viewing_to_trial.py</url>
+          <line>84</line>
+          <option name="timeStamp" value="1361" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d03_processing/feature_calculate/gaze_distance.py</url>
+          <line>286</line>
+          <option name="timeStamp" value="1368" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/d03_processing/feature_calculate/gaze_distance.py</url>
+          <line>173</line>
+          <option name="timeStamp" value="1388" />
+        </line-breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/AlloEye$main.coverage" NAME="main Coverage Results" MODIFIED="1658518739379" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/data_pipeline$add_4MT_cols.coverage" NAME="add_4MT_cols Coverage Results" MODIFIED="1673525699372" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data/d01_raw" />
+    <SUITE FILE_PATH="coverage/data_pipeline$fetch_timepoints.coverage" NAME="fetch_timepoints Coverage Results" MODIFIED="1666172454181" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/d01_data/02_fetch" />
+    <SUITE FILE_PATH="coverage/data_pipeline$gaze_profiling.coverage" NAME="gaze_profiling Coverage Results" MODIFIED="1666198597139" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/d02_intermediate" />
+    <SUITE FILE_PATH="coverage/data_pipeline$frame.coverage" NAME="frame Coverage Results" MODIFIED="1663768610248" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/.conda/envs/alloeyepy/Lib/site-packages/pandas/core" />
+    <SUITE FILE_PATH="coverage/data_pipeline$fetch_timepoints__1_.coverage" NAME="fetch_timepoints (1) Coverage Results" MODIFIED="1666172738139" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/d01_data/fetch" />
+    <SUITE FILE_PATH="coverage/data_pipeline$AIS_test.coverage" NAME="AIS_test Coverage Results" MODIFIED="1683920833348" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/notebooks" />
+    <SUITE FILE_PATH="coverage/data_pipeline$classification.coverage" NAME="classification Coverage Results" MODIFIED="1676047415348" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/d05_modelling" />
+    <SUITE FILE_PATH="coverage/data_pipeline$trial_to_ppt.coverage" NAME="trial_to_ppt Coverage Results" MODIFIED="1666732216475" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/d03_processing/timepoints" />
+    <SUITE FILE_PATH="coverage/data_pipeline$performance_plotting.coverage" NAME="performance_plotting Coverage Results" MODIFIED="1666285124336" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/d07_visualisation" />
+    <SUITE FILE_PATH="coverage/data_pipeline$.coverage" NAME=" Coverage Results" MODIFIED="1670517270652" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/d03_processing/feature_extract" />
+    <SUITE FILE_PATH="coverage/data_pipeline$create_test_files.coverage" NAME="create_test_files Coverage Results" MODIFIED="1664826458727" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/data_pipeline$setup_db__1_.coverage" NAME="setup_db (1) Coverage Results" MODIFIED="1685519021894" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/d01_data/database" />
+    <SUITE FILE_PATH="coverage/data_pipeline$timepoint_to_viewing.coverage" NAME="timepoint_to_viewing Coverage Results" MODIFIED="1666720770829" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/d03_processing/timepoints" />
+    <SUITE FILE_PATH="coverage/data_pipeline$sql_commands.coverage" NAME="sql_commands Coverage Results" MODIFIED="1675707643259" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/d01_data/database" />
+    <SUITE FILE_PATH="coverage/data_pipeline$main.coverage" NAME="main Coverage Results" MODIFIED="1660661268280" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/data_pipeline$combine_data_files.coverage" NAME="combine_data_files Coverage Results" MODIFIED="1666784226810" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/d01_data/file_handling" />
+    <SUITE FILE_PATH="coverage/data_pipeline$viewing_to_trial.coverage" NAME="viewing_to_trial Coverage Results" MODIFIED="1666725848216" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/d03_processing/timepoints" />
+    <SUITE FILE_PATH="coverage/data_pipeline$group_conditions.coverage" NAME="group_conditions Coverage Results" MODIFIED="1673345332829" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/d04_wrangling" />
+    <SUITE FILE_PATH="coverage/data_pipeline$parse_file_name.coverage" NAME="parse_file_name Coverage Results" MODIFIED="1663766361823" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/d01_data/01_database" />
+    <SUITE FILE_PATH="coverage/data_pipeline$setup_db.coverage" NAME="setup_db Coverage Results" MODIFIED="1665510032053" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/d01_data/01_database" />
+    <SUITE FILE_PATH="coverage/data_pipeline$aoi.coverage" NAME="aoi Coverage Results" MODIFIED="1675707243430" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/d03_processing" />
+    <SUITE FILE_PATH="coverage/data_pipeline$feature_plotting.coverage" NAME="feature_plotting Coverage Results" MODIFIED="1667413754815" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/d07_visualisation" />
+  </component>
+</project>

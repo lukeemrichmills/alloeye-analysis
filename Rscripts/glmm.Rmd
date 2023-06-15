@@ -1,0 +1,64 @@
+---
+title: "GLMM"
+output: html_document
+date: "2023-01-17"
+---
+
+```{r setup, include=FALSE}
+```
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(broom)
+library(gtools)
+library(lme4)
+library(lmerTest)
+library(tidyverse) # data wrangling and visualization
+library(sjPlot)    # to visualizing mixed-effects models
+library(effects)   # to visualizing mixed-effects models
+library(lme4)      # "golden standard" for mixed-effects modelling in R (no p-values)
+library(lmerTest)  # p-values for MEMs based on the Satterthwaite approximation
+library(report)    # mainly for an "report" function
+library(emmeans)   # post-hoc analysis
+library(knitr)     # beautifying tables
+library(sjstats)   # ICC - intraclass-correlation coefficient
+library(caret)  
+```
+```{r}
+data <- read.csv('conds_cleaned.csv')
+data$group <- as.factor(data$group)
+data2 <- data %>% mutate(group_n=if_else(group=='P', 1, 0)) 
+data2 <- subset(data2, select=-c(group))
+# data2$group_n <- as.factor(data2$group_n)
+data2$condition <- as.factor(data$condition)
+data2 <- na.omit(data2)
+```
+
+```{r}
+dodge_width <- 0.6
+
+ggplot(data, aes(x=factor(condition), hn_diff, fill=factor(group, levels = c("Y", "O", "P")))) +
+    geom_violin(trim=FALSE, size=0.7, position = position_dodge(width = dodge_width)) +
+  geom_boxplot(aes(x=factor(condition), hn_diff, fill=factor(group, levels = c("Y", "O", "P"))),
+               width=0.08, size = 0.6, alpha = 0.1, position = position_dodge(width = dodge_width)) +
+  theme_classic() +
+  xlab('condition') +
+  geom_point(position = position_jitterdodge(jitter.width = 0.2, dodge.width = dodge_width), size=0.5, alpha=0.4) +
+  labs(fill="group") 
+  theme(axis.text.x= element_blank())
+```
+
+
+```{r}
+young_d <- data2[data2$group==]
+m_test <- glmer(formula=group_n~(1|ppt_id) + hn_diff:condition, data = data2,
+                family=binomial, control=glmerControl(optimizer="bobyqa"))
+
+tab_model(m_test, show.aic = T)
+```
+
