@@ -10,54 +10,621 @@ library(knitr)
 library(dplyr)
 library(readr)
 library(lme4)
+library(nlme)
+library(ggplot2)
+library(boot)
+library(here)
+library(tidyverse)
+```
+
+```{r}
+setwd("C:\\Users\\Luke Emrich-Mills\\OneDrive\\Documents\\PhD\\AlloEye\\data_pipeline\\notebooks\\")
+df <- read_csv('proportion_time_dynamics.csv')
+df <- df %>% filter(time > 1000) %>%
+  mutate(table_minus_selected = table - selected,
+         table_minus_moved = table - moved,
+         moved_minus_selected = moved - selected,
+         not_moved = (obj2 + obj3 + obj4),
+         not_moved_av = (obj2 + obj3 + obj4) / 3
+  ) %>% mutate(table_minus_notmoved = table - not_moved)
+```
+
+
+```{r}
+g <- 'Younger'
+p_ind <- 2
+B<-1
+```
+
+
+```{r}
+aoi_col = 'table_minus_selected'
+aoi_col = 'table_minus_moved'
+aoi_col = 'not_moved'
+
+
+rand_inds <- c(2, 3, 7, 5, 13)
+for (p_ind in 1:1){
+  df_p <- df %>% filter(group == g) %>% filter(participant == p_ind) %>% 
+    mutate(time = as.integer(time))
+  # df_p <- df_p[seq(from = 1, to = nrow(df_p), by = 15),]  # select every tenth 10
+  
+  ols_model = gls(table_minus_selected ~ time, data=df_p)
+  ols_out <- summary(ols_model)
+  
+  
+  df_p$ols_pred = ols_model$fitted
+  ols_se <- sqrt(ols_out$varBeta[[4]])
+  ols_sd <- sd(ols_model$residuals)
+  # df_p$ols_se <- sqrt(predict(ols_model, level = 0, type = "response", se.fit = TRUE))
+  
+  df_p$ols_upr <- df_p$ols_pred + (1.96 * ols_se)
+  df_p$ols_lwr <- df_p$ols_pred -  (1.96 * ols_se)
+  df_p$ols_upr_sd <- df_p$ols_pred + ols_sd
+  df_p$ols_lwr_sd <- df_p$ols_pred - ols_sd
+  
+  
+  bootstrap_indices <- sample.int(n=nrow(df_p), replace=TRUE)
+  bootstrap_sample <- df_p[bootstrap_indices, ]
+  ols_boot = gls(table_minus_selected ~ time, data=bootstrap_sample)
+  bootstrap_sample$ols_pred = ols_boot$fitted
+  
+  c = 'black'
+  if (p_ind %in% rand_inds){c = 'red'}
+  if (p_ind == 1){
+    p <- ggplot(df_p, aes(x=time))+
+    geom_point(aes(y=table_minus_selected ), alpha=0.8) +
+    geom_line(aes(y=ols_pred), color=c, size=2, alpha=0.8) +
+      geom_line(aes(y=ols_upr_sd), color=c, size=1, linetype='dotted') +
+       geom_line(aes(y=ols_lwr_sd), color=c, size=1, linetype='dotted') 
+  }else if(p_ind==2){
+    p <- p + 
+    geom_line(data = df_p, aes(y=ols_pred), color=c, size=2, alpha=0.8) 
+  }else{
+    p <- p + 
+    geom_line(data = df_p, aes(y=ols_pred), color=c, size=2, alpha=0.0) 
+  }
+  
+  # p <- p + geom_point(data=bootstrap_sample, aes(x=time, y=table_minus_selected), color='red') +
+  #   geom_line(aes(y=ols_pred), color='red',size=1) 
+}
+p <- p + labs(x='time') + theme_minimal()
+print(p)
+
+
+```
+
+
+```{r}
+
+
+
+# bootstrap function for ols coefficients
+boot_ols <- function(df, indices) {
+  df <- df[indices,]
+  ols_model <- gls(formula, data = df)
+  return(coef(ols_model))
+}
+
+# function to get slope and intercept from OLS fit to one participant's data
+# optionally includes version where within-subject variation is taken into account by
+# randomly selecting participant's line from normal distribution using fit and sd of residuals
+participant_ols <- function(formula, df_p, ws_method){
+  
+  # BOOTSTRAP VERSION
+    if (ws_method=='boot'){
+      boot_ols_results <- boot(data=df_p, statistic=boot_ols, R=B_inner)
+      boot_sd_results <- boot(data=df_p, statistic=boot_sd, R=B_inner)
+      rand_idx <- sample(nrow(boot_ols_results$t), 1)
+      random_slope <- boot_ols_results$t[,2][[rand_idx]]
+      random_intcpt <- boot_ols_results$t[,1][[rand_idx]]
+    }
+    
+    # RNORM VERSION
+    if (ws_method=='rnorm'){
+      ols_model <- gls(formula, data = df_p)
+      res_sd <- sd(ols_model$residuals)
+      int <- coef(ols_model)[[1]]
+      slope <- coef(ols_model)[[2]]
+      seven_sec <- int + 7000*slope
+      random_intcpt <- rnorm(1, mean=int, sd=res_sd)
+      random_seven_sec <- rnorm(1, mean=seven_sec, sd=res_sd)
+      random_slope <- (random_seven_sec - random_intcpt) / 7000
+    }
+    
+    # FULL DATA VERSION
+    if (ws_method=='none'){
+      ols_model <- gls(formula, data = df_p)
+      random_slope <- coef(ols_model)[[2]]
+      random_intcpt <- coef(ols_model)[[1]]
+    }
+  return(list('slope'=random_slope, 'intercept'=random_intcpt))
+}
+
+# resampling function for group mean linear parameters
+# can optionally involve participant-level bootstrap resampling, or random selection by rnorm
+sample_ols <- function(formula, ppts, df_g, ws_method){
+  n_ppts <- length(ppts)
+  
+  ppt_slopes <- numeric(n_ppts)
+  ppt_intcpt <- numeric(n_ppts)
+  
+  # for loop participant
+  for (p in 1:n_ppts) {
+    df_p <- df_g %>% filter(participant == ppts[p])
+    
+    ppt_out <- participant_ols(formula, df_p, ws_method)
+    
+    ppt_slopes[p] <- ppt_out$slope
+    ppt_intcpt[p] <- ppt_out$intercept
+
+  }
+  mean_slope <- mean(ppt_slopes)
+  mean_int <- mean(ppt_intcpt)
+  return(c(mean_int, mean_slope))
+}
+
+
+
+# main function - gets distributions of linear fits per group
+bootline <- function(x, y, df, groups='from_data', ws_method='rnorm', 
+                     B_outer=100, B_middle='from_data', B_inner=5, seed=123,
+                     suppress_print=FALSE){
+  
+  # define linear function
+  formula_str <- paste(y, "~", x)
+  formula <- as.formula(formula_str)
+  print(formula)
+  
+  # set random seed for consistency
+  set.seed(seed)
+
+    # define groups
+  if (any(groups == 'from_data')){groups <- unique(df$group)}
+  n_groups <- length(groups)
+  
+  # define within-group repetitions. If from_data, use size of smallest group
+  if (B_middle == 'from_data'){
+    n_min <- length(unique(df$participant)) + 1  # start high
+    print(n_min)
+    for (g in 1:length(groups)){
+      df_g <- df %>% filter(group == groups[g])
+      n <- length(unique(df_g$participant))
+
+      if (n < n_min){n_min <- n}
+    }
+    B_middle <- n_min
+    # print(paste("B_middle: ", B_middle))
+  }
+  
+  # predefine group data list
+  group_slopes <- list()
+  group_intrcpt <- list()
+  
+  # for loop group
+  for (g in 1:length(groups)) {
+    if (!suppress_print){print(paste('#####', groups[g], 'group', g, 'of', length(groups), '#####'))}
+    boot_slopes <- numeric(B_outer)
+    boot_intrcpts <- numeric(B_outer)
+    
+    for (i in 1:B_outer) {
+      if (!suppress_print){print(paste('Outer loop', i, 'of', B_outer))}
+      df_g <- df %>% filter(group == groups[g])
+      ppts <- unique(df_g$participant)
+      
+      # testing
+      ppt_sample <- sample(ppts, replace = TRUE)
+      sample_results <- sample_ols(formula, ppt_sample, df_g, ws_method)
+      
+      # middle_ints <- numeric(B_middle)
+      # middle_slopes <- numeric(B_middle)
+      # for (inner in 1:B_middle){
+      #   ppt_sample <- sample(ppts, replace = TRUE)
+      #   sample_results <- sample_ols(formula, ppt_sample, df_g, ws_method)
+      #   middle_ints[[inner]] <- sample_results[1]
+      #   middle_slopes[[inner]] <- sample_results[2]
+      # }
+      # boot_slopes[i] <- mean(middle_slopes)
+      # boot_intrcpts[i] <- mean(middle_ints)
+      
+      boot_slopes[i] <- sample_results[2]
+      boot_intrcpts[i] <- sample_results[1]
+
+    }
+    group_slopes[[g]] <- boot_slopes
+    group_intrcpt[[g]] <- boot_intrcpts
+  }
+  return(list("group_slopes"=group_slopes, "group_intrcpt"=group_intrcpt))
+}
+
+aoi_col <- 'table_minus_selected'
+aoi_col <- 'table_minus_moved'
+# aoi_col <- 'moved'
+# aoi_col <- 'moved_minus_selected'
+# aoi_col <- 'selected'
+aoi_col <- 'not_moved'
+aoi_col <- 'table_minus_notmoved'
+B_outer = 50 # number of repetitions for resampling group models
+B_middle = 5 # number of repetitions for resampling random participant parameters in boot_ols_boot
+B_inner = 5  # bootstrap repetitions for resampling data within each participant for 'boot' ws_method
+
+ws_method = 'rnorm'  # 'boot', 'none'; default='rnorm'
+# ws_method = 'none'
+groups <- c('Younger', 'Older', 'MCI+', 'MCI-')
+boot_out <- bootline('time', aoi_col, df=df, groups = groups,
+                     ws_method=ws_method, B_outer=B_outer)
+group_slopes <- boot_out$group_slopes
+group_intrcpt <- boot_out$group_intrcpt
+```
+
+```{r}
+
+
+
+  
+```
+
+```{r}
+
+cohensD <- function(group1, group2){
+  # calculate Cohen's d
+  n1 <- length(group1)
+  n2 <- length(group2)
+  df <- n1 + n2 - 2
+  s_pooled <- sqrt(((n1-1)*var(group1) + (n2-1)*var(group2)) / df)
+  d <- (mean(group1) - mean(group2)) / s_pooled
+  return(d)
+}
+
+get_tstat_clusters <- function(t, group1_mat, group2_mat, t_threshold,
+                               alpha=0.05){
+  alpha_bonf <- 0.05 #/ length(t)
+  clusters <- list()
+  cluster_ind <- 1
+  cluster_tstats <- numeric()
+  cluster_ts <- numeric()
+  cluster_ds <- numeric()
+  cluster_ps <- numeric()
+  all_ts <- numeric(length(t))
+  all_ds <- numeric(length(t))
+  all_ps <- numeric(length(t))
+  for (ti in 1:length(t)){
+    g1 <- group1_mat[ti, ]
+    g2 <- group2_mat[ti, ]
+    t_stat <- t.test(g1, g2)$statistic
+    p_val <- t.test(g1, g2)$p.value
+    coh_d <- cohensD(g1, g2)
+    
+    all_ts[[ti]] <- t_stat
+    all_ds[[ti]] <- coh_d
+    all_ps[[ti]] <- p_val
+    if (abs(t_stat) > t_threshold & p_val < alpha_bonf) {
+     
+      cluster_tstats <- c(cluster_tstats, t_stat)
+      cluster_ts <- c(cluster_ts, t[ti])
+      cluster_ds <- c(cluster_ds, coh_d)
+      cluster_ps <- c(cluster_ps, p_val)
+    } else {
+      if (length(cluster_tstats) > 0) {
+        clusters[[cluster_ind]] <- cbind(cluster_tstats, cluster_ts, 
+                                         cluster_ds, cluster_ps)
+      }
+      cluster_tstats <- numeric()
+      cluster_ts <- numeric()
+      cluster_ds <- numeric()
+      cluster_ind <- cluster_ind + 1
+      }
+  }
+  if (length(cluster_tstats) > 0) {
+    clusters[[cluster_ind]] <- cbind(cluster_tstats, cluster_ts, 
+                                         cluster_ds, cluster_ps)
+  }
+  return(list('clusters'=clusters, 'all_tstats'=all_ts, 'all_ds'=all_ds))
+}
+
+
+linfun <- function(t, slope, intercept) {
+  return((t * slope) + intercept)
+}
+
+```
+
+```{r}
+
+t <- sort(unique(df$time))
+group_mats <- list()
+group_onesec <- list(length(group_slopes))
+group_sevensec <- list(length(group_slopes))
+group_auc <- list(length(group_slopes))
+for (g in 1:length(groups)) {
+  slopes <- group_slopes[[g]]
+  ints <- group_intrcpt[[g]]
+  result <- matrix(NA, nrow = length(t), ncol=length(slopes)) 
+  for (i in 1:length(slopes)) {
+    result[,i] <- linfun(t, slopes[i], ints[i])
+  }
+  group_onesec[[g]] <- result[1, ]
+  group_sevensec[[g]] <- result[length(t), ]
+  group_auc[[g]] <- colSums(result)
+  group_mats[[g]] <- result
+}
+
+```
+
+```{r}
+
+
+t_threshold <- 2.06
+alpha_level <- 0.001
+t_threshold <- qt(p = 1 - alpha_level/2, 
+                  df = (B_outer*2) - 2) # pick threshold t based on alpha level two tailed
+
+cluster_list <- list()
+
+group_colours <- list(c(0, 0.6, 0), c(0, 0, 0.8), c(0.8, 0, 0),  c(0.7, 0, 0.7))
+
+group_pairs <- combn(groups, 2)
+cluster_pairs <- list(length(group_pairs))
+cluster_sums_pairs <- list(length(group_pairs))
+
+for (p in 1:ncol(group_pairs)){
+  pair <- group_pairs[, p]
+  matrix1 <- group_mats[[match(pair[[1]], groups)]]
+  matrix2 <- group_mats[[match(pair[[2]], groups)]]
+  clust_out <- get_tstat_clusters(t, matrix1, matrix2, t_threshold)
+  clusters <- clust_out$clusters
+  cluster_sums <- numeric(length(clusters))
+  if (length(clusters)>0){
+    for (i in 1:length(clusters)){
+      cluster_sums[i] <- sum(clusters[[i]][, 1])
+    }
+  }
+  
+  cluster_pairs[[p]] <- clusters
+  cluster_sums_pairs[[p]] <- cluster_sums
+  
+}
+
+```
+
+```{r}
+t <- df_p$time
+x <- t
+
+y_min <- 1000
+y_max <- -10000
+for (g in 1:length(groups)){
+  mat <- group_mats[[g]]
+  means <- rowMeans(mat)
+  sds <- apply(mat, 1, sd)
+  if (max(means) + max(sds) > y_max){y_max <- max(means) + (1.1*max(sds))}
+  min_ <- min(mat)
+  if (min(means) - min(sds) < y_min){y_min <- min(means) - (1.1*max(sds))}
+}
+
+linewidth=2
+alpha=0.1
+for (g in 1:length(groups)){
+  mat <- group_mats[[g]]
+  means <- rowMeans(mat)
+  sds <- apply(mat, 1, sd)
+  c <- group_colours[[g]]
+  if (g == 1){
+    plot(x, means, type='l', col=rgb(c[1], c[2], c[3], 0.9), ylim=range(c(y_min, y_max)),
+         lwd=linewidth, ylab = 'Proportion', xlab = 'Time (ms)')
+  }else {
+    lines(x, means, col=rgb(c[1], c[2], c[3], 0.9),lwd=linewidth)
+  }
+  polygon(c(x, rev(x)), c(means + sds, rev(means - sds)), border = NA, col = rgb(c[1], c[2], c[3], alpha))
+}
+# t<- t[1:1000]
+steps <- 200
+sigline_width <- 2
+for (tp in seq(1, length(t), by=steps)){
+  for (g1 in 1:length(groups)){
+  group1 <- groups[g1]
+  # print(paste('1',group1))
+  point1 <- group_mats[[match(group1, groups)]][tp, ]
+  mean1 <- mean(point1)
+  sd1 <- sd(point1)
+  other_point <- point1
+  other_sd <- sd1
+  other_mean <- mean1 
+  mean_diff <- 100000 # make high to start
+  group2 <- ""
+  for (g2 in 1:ncol(group_pairs)){
+
+    if (group_pairs[1, g2] == group1 | group_pairs[2, g2] == group1){
+      if (group_pairs[1, g2] == group1){ind <- 2} else {ind <- 1}
+      next_group <- group_pairs[ind, g2]
+      
+      next_point <- group_mats[[match(next_group, groups)]][tp, ]
+      next_mean <- mean(next_point)
+      diff <- abs(mean1 - next_mean)
+      # print(paste('2',next_group, diff))
+      if (diff < mean_diff){
+        mean_diff <- diff
+        group2 <- next_group
+        other_mean <- next_mean
+        other_point <- next_point
+        other_sd <- sd(other_point)
+        }
+      }
+  }
+  print(groups[g1])
+  t_test <- t.test(point1, other_point)
+  if (t_test$p.value < 0.05 / length(t) / 6 / ((B_outer*2) - 2)){
+    print(paste('sig', group1, group2))
+    c1 <- group_colours[[g1]]
+    c2 <- group_colours[[match(group2, groups)]]
+    c <- c(0.0, 0.0, 0.0)
+    se_both <- sd(c(point1, other_point)) / sqrt(length(point1)+length(other_point))
+
+    y_0 <- min(mean1, other_mean)
+    y_1 <- max(mean1, other_mean)
+    y_0 <- y_0 + 2*se_both
+    y_1 <- y_1 - 2*se_both
+    segments(x0 = t[tp], y0 = y_0, x1 = t[tp], y1 = y_1, col=rgb(c[1], c[2], c[3], 0.6), lwd=sigline_width)
+    }
+  }
+  
+}
+
+
+
+
+# # Loop through each matrix in the clusters list
+# for(cluster in clusters) {
+#   # Get the x-values from the first column of the matrix
+#   x_values <- cluster[, 2]
+#   ds <- abs(cluster[,3])
+#   
+#   
+#   # normalize the third column to a 0-1 range for color intensity
+#   normed_d <- (ds - min(ds)) / (max(ds) - min(ds))
+#   colors <- rgb(red = normed_d, green = 0.5, blue = 0, alpha = 0.1)
+#   
+#   # Add a thick, transparent yellow vertical line for each x-value
+#   for(i in seq(0, length(x_values), by=1)) {
+#     x_value <- x_values[i]
+#     c <- colors[i]
+#     abline(v = x_value, col = c, lwd = 0.1)
+#   }
+# }
+
 ```
 ```{r}
+library(ggsignif)
+# library(ggrain)
+# Define the color for each group
+color_dict <- c("Younger" = rgb(group_colours[[1]][1], group_colours[[1]][2], 
+                                group_colours[[1]][3]),
+                "Older" = rgb(group_colours[[2]][1], group_colours[[2]][2], 
+                                group_colours[[2]][3]),
+                "MCI-" = rgb(group_colours[[4]][1], group_colours[[4]][2], 
+                                group_colours[[4]][3]), 
+                "MCI+" = rgb(group_colours[[3]][1], group_colours[[3]][2], 
+                                group_colours[[3]][3]))
+color <- unname(color_dict)
+group_order <- c("Younger", "Older", "MCI-", "MCI+")
+
+# BOXPLOT FUNCTION
+boxplot_groups <- function(group_list, ylab, title){
+  df <- data.frame(group_list)
+  names(df) <- groups
+  df_long  <- df %>% pivot_longer(everything(), names_to = "Group", values_to = ylab)
+  df_long$Color <- color_dict[df_long$Group]
+  print(df_long)
+
+
+  p <- ggplot(df_long, aes(x = factor(Group, levels = group_order), 
+                           y = get(ylab), fill = factor(Color, levels=color), 
+                           color = factor(Color, levels=color))) + 
+        geom_boxplot(alpha = 0.2) +
+        #geom_rain(alpha = .6,
+                 # boxplot.args = list(color = "black", outlier.shape = NA)) +
+        geom_jitter(width = 0.05, alpha = 0.2) +
+        theme_minimal() +
+        scale_color_manual(values = color) +
+        scale_fill_manual(values=color) +
+        theme_minimal() +
+        theme(legend.position = "none") +
+        labs(x = "Groups", y = ylab, title = title, fill = "", color = "") 
+    
+  
+  # Calculate t-test statistics and add brackets with significance stars
+  comparisons <- combn(group_order, 2, simplify = FALSE)
+  # p <- p + geom_signif(comparisons = group_order, 
+  #                 map_signif_level = TRUE)
+  
+  ci <- 0
+  for (comp in comparisons) {
+    p <- p +
+      geom_signif(comparisons = list(comp),
+                  y_position = c(max(df_long[[ylab]]) + 0.3*sd(df_long[[ylab]]) +
+                                   0.6*(ci-1)*sd(df_long[[ylab]])), 
+                  map_signif_level = TRUE)
+    ci <- ci+1
+    }
+  return(p)
+  
+}
+
+
+## SLOPE boxplots
+print(boxplot_groups(group_slopes, 'Slopes', "Slopes of % over time"))
+
+## ONESEC boxplots
+print(boxplot_groups(group_onesec, 'Value at 1 second', "% at 1 second"))
+
+## SEVENSEC boxplots
+print(boxplot_groups(group_sevensec, 'Value at 7 seconds', "% at 7th second"))
+
+## AUC boxplots
+print(boxplot_groups(group_auc, 'Area Under the Line', 'Area Under the Line'))
+
+```
+
+```{r}
+
+n_shuffles <- 10000
+max_sum_tstats <- numeric(n_shuffles)
+full_ds <- numeric(n_shuffles*length(t))
+gmat1 <- group_mats[[1]]
+gmat2 <- group_mats[[2]]
+for (s in 1:n_shuffles){
+  # combine all participants across both groups
+  full_mat <- cbind(group_mats[[1]], group_mats[[2]],
+                    group_mats[[3]], group_mats[[4]])
+  
+  # shuffle ppts then split into two groups
+  shuffle_ppt <- sample(ncol(full_mat))
+  shuffle_ppt_mat <- full_mat[, shuffle_ppt]
+  
+  shuffle_mat1 <- shuffle_ppt_mat[, 1:ncol(gmat1)]
+  shuffle_mat2 <- shuffle_ppt_mat[, (ncol(gmat1)+1):ncol(full_mat)]
+  
+  # # shuffle rows
+  # shuffle_ind <- sample(nrow(gmat1))
+  # shuffle_mat1 <- shuffle_ppt_mat1[shuffle_ind, ]
+  # shuffle_mat2 <- shuffle_ppt_mat2[shuffle_ind, ]
+  
+  # get clusters
+  clust_out<- get_tstat_clusters(t, shuffle_mat1, shuffle_mat2, t_threshold)
+  clusters <- clust_out$clusters
+  all_ts <- clust_out$all_tstats
+  all_ds <- clust_out$all_ds
+  
+  # get the maximum sum of t-statistics from all clusters
+  max_sum_tstat <- 0 # start at 0
+  for (cluster in clusters){
+    sum_tstat <- sum(cluster[, 1])
+    if (abs(sum_tstat) > max_sum_tstat){max_sum_tstat <- sum_tstat}
+  }
+  max_sum_tstats[[s]] <- max_sum_tstat
+  full_ds_ind_adj <- (length(t) * (s-1))
+  full_ds_inds <- (1 + full_ds_ind_adj):(length(t) + full_ds_ind_adj)
+  full_ds[full_ds_inds] <- all_ds
+}
+
+
+# Plot a histogram of 'data'
+hist(max_sum_tstats, main = "Histogram of Shuffled T-stats", xlab = "T-stats", col = "lightblue", border = "black")
+
+# Add a vertical line at 'val'
+for (csum in cluster_sums){
+  abline(v = csum, col = "red", lwd = 2)
+}
+
+hist(full_ds, main='Shuffled Cohens D all', col='lightblue', border='black')
+
 
 ```
 
 Load data
+
 ```{r}
 
-
-
-
-# Read the CSV file
-df <- read_csv("object_time_dynamics.csv")
-
-# Remove rows where 'object' is NA
-df <- df %>% filter(!is.na(object))
-
-# Replace 'None' with NA and then remove rows with any NA
-df <- df %>% mutate_all(~na_if(.,"None")) %>% na.omit()
-
-```
-```{r}
-
-
-df <- df %>%  filter(group %in% c('MCI-', 'MCI+')) %>%
-    mutate(mcipos = ifelse(group == 'MCI+', 1, 0),
-                 object2 = ifelse(object %in% c('Obj2', 'Obj3', 'Obj4'), 'Obj', object)
-    ) %>%
-    mutate(t = as.numeric(t),
-           object2 = as.factor(object2),
-           trial = as.factor(trial),
-           participant = as.factor(participant),
-           mcipos = as.factor(mcipos)
-      ) %>%
-    filter(object2 %in% c('Moved', 'Obj', 'Table'))
-
-
-```
-```{r}
-# Fit the model
-model <- glmer(mcipos ~ t:object2 + (1|trial/participant), data=df, family = binomial, control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 1e5)))
-
-summary(model)
-
-## RUN THE ABOVE WITH YOUNGER VS MCI+ ONLY
-```
-```{r}
-df_prop <- read_csv('proportion_time_dynamics.csv')
 df_prop <- df_prop %>% filter(group %in% c('MCI-', 'MCI+')) %>%
     mutate(mcipos = ifelse(group == 'MCI+', 1, 0),
            participant = paste(group, participant, sep='_')
